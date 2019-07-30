@@ -2,12 +2,9 @@ var program = require( 'commander' );
 var inquirer = require( 'inquirer' );
 var {resolve} = require('path');
 const {readdir, exists} = require('mz/fs');
-var config = require( '../config' );
 const {dirs} = require('../config/constant');
-const rmfr = require( 'rmfr' );
 const {copyFile} = require('../utils/utils');
-const metalsmithACtion = require('../utils/metalsmithACtion').apply;
-const {OraLoading} = require('../utils/OraLoading');
+const {oraLoading} = require('../utils/utils');
 
 program
 	.command( 'init' )
@@ -16,12 +13,12 @@ program
 		// to do
 		console.log( 'init command' );
 		let loader
-		loader = OraLoading( 'check download dir' );
+		loader = oraLoading( 'check download dir' );
 		if ( !await exists( dirs.download ) ) {
 			throw new Error( `There is no ${dirs.download}, Please install a template` );
 		}
 		loader.succeed( 'check download dir success' )
-		loader = OraLoading( 'read download dir' );
+		loader = oraLoading( 'read download dir' );
 		const list = await readdir( dirs.download );
 		loader.succeed( 'read download dir success' );
 		if ( list.length === 0 ) {
@@ -52,22 +49,11 @@ program
 				}
       }
     ];
-		const answers = await inquirer.prompt( questions )
-		const metalsmith = config.metalsmith;
-		if ( metalsmith ) {
-			const tmp = `${dirs.tmp}/${answers.template}`;
-			// 复制一份到临时目录，在临时目录编译生成
-			loader = OraLoading( 'copy file to tmp dir' )
-			await copyFile( `${dirs.download}/${answers.template}`, tmp );
-			loader.succeed( 'copy file to tmp dir success' )
-			await metalsmithACtion( answers.template );
-			loader = OraLoading( 'compiling', answers.dir );
-			await copyFile( `${tmp}/${dirs.metalsmith}`, answers.dir );
-			await rmfr( tmp ); // 清除临时文件夹
-		} else {
-			loader = OraLoading( 'generating', answers.dir );
-			await copyFile( `${dirs.download}/${answers.template}`, answers.dir );
-		}
+        const answers = await inquirer.prompt(questions);
+
+        loader = oraLoading( 'generating', answers.dir );
+        await copyFile( `${dirs.download}/${answers.template}`, answers.dir );
+
 		loader.succeed( `generated ${answers.dir}` );
 	} );
 program.parse( process.argv );

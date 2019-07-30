@@ -3,6 +3,7 @@ const {ncp} = require('ncp');
 const mkdirp = require('mkdirp');
 const {exists} = require('mz/fs');
 var consolidate = require('consolidate');
+const ora = require('ora');
 const renderContent = consolidate.swig.render;
 /**
  * metalsmith 渲染插件
@@ -42,7 +43,13 @@ function copyFile( src, dest ) {
     } );
 }
 
+function oraLoading(action = 'getting', repo = '') {
+    const l = ora(`${action} ${repo}`);
+    return l.start();
+};
+
 module.exports = {
     render,
-    copyFile
+    copyFile,
+    oraLoading
 };

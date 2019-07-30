@@ -2,7 +2,7 @@ var program = require( 'commander' );
 var inquirer = require( 'inquirer' );
 var {gitCtrl} = require('../utils/gitCtrl');
 var config = require( '../config' );
-var {OraLoading} = require('../utils/OraLoading');
+var {oraLoading} = require('../utils/utils');
 
 // 初始化git操作类
 let git = new gitCtrl( config.repoType, config.registry )
@@ -13,7 +13,7 @@ program
 	.action( async ( options ) => { //list命令的实现体
 		// to do
         let version, choices, repos, loader;
-        loader = OraLoading('fetch repo list');
+        loader = oraLoading('fetch repo list');
 
 		//加载远程列表们
 		repos = await git.fetchRepoList();
@@ -42,7 +42,7 @@ program
 
 
 		console.log( answers ); // 输出最终的答案
-		loader = OraLoading( 'begin download repo' )
+		loader = oraLoading( 'begin download repo' )
 		let result = await git.downloadGitRepo( repo );
 
         console.log('result', result);
