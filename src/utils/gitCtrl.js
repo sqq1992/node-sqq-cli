@@ -97,6 +97,7 @@ class gitCtrl {
 			scaffold
 		} = await this.fetchGitInfo( repo );
 
+        console.log(repo, url, scaffold);
 		return new Promise( ( resolve, reject ) => {
 			DownloadGitRepo( url, `${dirs.download}/${scaffold}`, ( err ) => {
 				if ( err ) {

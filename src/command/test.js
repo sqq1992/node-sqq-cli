@@ -1,22 +1,42 @@
 var program = require( 'commander' );
+var {gitCtrl} = require('../utils/gitCtrl');
+var {OraLoading} = require('../utils/OraLoading');
+var config = require( '../config' );
+const {dirs} = require('../config/constant');
+const {readdir, exists} = require('mz/fs');
+var inquirer = require( 'inquirer' );
+
+let git = new gitCtrl( config.repoType, config.registry )
+
 program
     .command( 'test' )
     .description( 'init project for local' )
-    .action( function ( options ) { //list命令的实现体
+    .action( async function ( options ) { //list命令的实现体
         // to do
-        console.log('init options', options);
-        console.log( 'init command' );
 
-        var fs = require( 'fs' );
-        //获取当前运行目录下的文件信息
-        fs.readdir( process.cwd(), function ( err, files ) {
-            var list = files;
-            if ( !options.all ) { //检查用户是否给了--all或者-a的参数，如果没有，则过滤掉那些以.开头的文件
-                list = files.filter( function ( file ) {
-                    return file.indexOf( '.' ) !== 0;
-                } );
-            }
-            console.log( list.join( '\n\r' ) ); //控制台将所有文件名打印出来
-        } );
+
+        // let repos = await git.fetchRepoList();
+        //
+        // let choices = repos.map(({
+        //                              name
+        //                          }) => name);
+        // console.log('choices', choices);
+        //
+        // let questions = [ {
+        //     type: 'list',
+        //     name: 'repo',
+        //     message: 'which repo do you want to install?',
+        //     choices
+        // }];
+        //
+        // let answers = await inquirer.prompt( questions )
+
+
+        //test2
+        const list = await readdir( dirs.download );
+
+        console.log('list', list);
+
+
     } );
 program.parse( process.argv ); //开始解析用户输入的命令

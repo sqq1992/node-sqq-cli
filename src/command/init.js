@@ -1,13 +1,13 @@
 var program = require( 'commander' );
 var inquirer = require( 'inquirer' );
-var resolve = require('path').resolve;
+var {resolve} = require('path');
 const {readdir, exists} = require('mz/fs');
 var config = require( '../config' );
 const {dirs} = require('../config/constant');
 const rmfr = require( 'rmfr' );
-const copyFile = require('../utils/copyFile').copyFile;
+const {copyFile} = require('../utils/utils');
 const metalsmithACtion = require('../utils/metalsmithACtion').apply;
-var OraLoading = require('../utils/OraLoading').OraLoading;
+const {OraLoading} = require('../utils/OraLoading');
 
 program
 	.command( 'init' )
@@ -25,7 +25,7 @@ program
 		const list = await readdir( dirs.download );
 		loader.succeed( 'read download dir success' );
 		if ( list.length === 0 ) {
-			throw new Error( `There is no any scaffolds in your local folder ${dirs.download}, install it` );
+			throw new Error( `本地没有下载过来文件 ${dirs.download}, install it` );
 		}
 
 		let questions = [
@@ -70,4 +70,4 @@ program
 		}
 		loader.succeed( `generated ${answers.dir}` );
 	} );
-program.parse( process.argv ); //开始解析用户输入的命令
+program.parse( process.argv );

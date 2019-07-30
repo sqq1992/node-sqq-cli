@@ -13,8 +13,8 @@ const ua = `${name}-${version}`;
  */
 const dirs = {
 	home,
-	download: `${home}/.webpack-project`,
-	rc: `${home}/.webpack-project`,
+	download: `${home}/.test-project`,
+	rc: `${home}/.test-project`,
 	tmp: os.tmpdir(),
 	metalsmith: 'metalsmith'
 };

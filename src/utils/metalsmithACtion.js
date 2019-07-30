@@ -6,7 +6,7 @@ const {exists} = require('mz/fs');
 const {execSync} = require('child_process');
 const {dirs} = require('../config/constant');
 const question = require('./initProjectQuestion').askCreator;
-const render = require('./render').render;
+const {render} = require('./utils');
 
 
 async function apply( template ) {
