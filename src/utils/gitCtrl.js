@@ -50,20 +50,6 @@ class gitCtrl {
 		return await this.fetch( api );
 	}
 
-	/**
-	 * 获取仓库所有的版本
-	 * @param  {[string]} repo [仓库名称]
-	 * @return {[type]}      [description]
-	 */
-	async fetchRepoTagList( repo ) {
-		const {
-			url,
-			scaffold
-		} = await this.fetchGitInfo( repo );
-		const api = `https://api.github.com/repos/${url}/tags`;
-
-		return this.fetch( api, scaffold, url );
-	}
 
 	/**
 	 * 获取仓库详细信息

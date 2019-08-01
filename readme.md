@@ -17,3 +17,4 @@ Path变量中去寻找, 总而言之就是调用系统中的node去执行我们�
 2.package.json 中的 bin 字段可以定义命令名和关联的执行文件。在 package.json 中添加 bin 字段
 3.执行npm link, 可以将命令链接到全局环境
 
+(ps:node不支持import导入, 想用的话就要加入babel去编译, 考虑到项目不大, 不需编译, 所以直接就是开发代码发上去跑了)
