@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "sqq23": "./bin/main.js"
+    "sqq2": "./bin/main.js"
   },
   "engines": {
     "node": ">= 0.12"
